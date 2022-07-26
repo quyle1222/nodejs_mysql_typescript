@@ -1,12 +1,13 @@
 /** @format */
 
 import { Request, Response } from "express";
-import { userCreate } from "../../models/auth/userCreate";
+import { user } from "../../models/auth/user";
 import { database } from "../../..";
 import { MysqlError } from "mysql";
-export default async (req: Request, res: Response) => {
-  const { body }: { body: userCreate } = req;
-  const { username, password }: userCreate = body;
+
+const register = async (req: Request, res: Response) => {
+  const { body }: { body: user } = req;
+  const { username, password }: user = body;
   const query = `INSERT INTO User (userId, password) VALUES ("${username}","${password}")`;
   database.query(query, (error: MysqlError, results: any) => {
     if (error) {
@@ -24,3 +25,5 @@ export default async (req: Request, res: Response) => {
     });
   });
 };
+
+export default register;

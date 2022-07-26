@@ -2,6 +2,7 @@
 
 import { Request, Response } from "express";
 import { login, register } from "../controllers/auth";
+import { verifyToken } from "../middleware";
 
 module.exports = (app: any) => {
   app.use((req: Request, res: Response, next: Function) => {
@@ -12,7 +13,7 @@ module.exports = (app: any) => {
     next();
   });
 
-  app.post("/createUser", [], register);
+  app.post("/createUser", register);
 
-  app.post("/login", [], login);
+  app.post("/login", login);
 };
